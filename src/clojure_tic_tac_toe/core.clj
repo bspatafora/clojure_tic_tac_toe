@@ -15,5 +15,8 @@
 (defn place-move [token, coordinates, board]
   (assoc-in board coordinates token))
 
+(defn is-draw [board]
+  (not (some #{" "} (flatten board))))
+
 (defn -main[]
   )

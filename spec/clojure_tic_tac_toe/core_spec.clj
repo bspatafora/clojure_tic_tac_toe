@@ -23,3 +23,15 @@
               [" ", " ", " "]] (place-move "O" [1 1] [["X", " ", " "],
                                                       [" ", " ", " "],
                                                       [" ", " ", " "]]))))
+
+(describe "is-draw"
+  (it "Returns true when the board is full"
+    (should= true (is-draw [["X", "O", "X"],
+                            ["O", "X", "O"],
+                            ["X", "O", "X"]])))
+  (it "Returns false when the board is empty"
+    (should= false (is-draw (create-board))))
+  (it "Returns false when the board is not full"
+    (should= false (is-draw [["X", " ", " "],
+                             [" ", "X", " "],
+                             [" ", " ", "X"]]))))
