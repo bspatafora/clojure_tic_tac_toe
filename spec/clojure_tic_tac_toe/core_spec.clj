@@ -2,6 +2,6 @@
   (:require [speclj.core :refer :all]
             [clojure_tic_tac_toe.core :refer :all]))
 
-(describe "a test"
-  (it "FIXME, I fail."
-    (should= 0 1)))
+(describe "create-board"
+  (it "Returns an empty, 3x3 vector"
+    (should= [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]] (create-board))))
