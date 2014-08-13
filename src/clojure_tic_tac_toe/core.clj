@@ -29,7 +29,12 @@
    [(get-in board [0 2]) (get-in board [1 1]) (get-in board [2 0])]])
 
 (defn winning-token [board]
-  (let [winning-row (filterv #(every? #{(first %)} %) (full-slices board))]
+  (let [full-row-slices (full-slices board)
+        full-column-slices (full-slices (board-columns board))
+        full-diagonal-slices (full-slices (board-diagonals board))
+        full-row-and-full-column-slices (into full-row-slices full-column-slices)
+        all-full-slices (into full-row-and-full-column-slices full-diagonal-slices)
+        winning-row (filterv #(every? #{(first %)} %) all-full-slices)]
     (if winning-row
       (get-in winning-row [0 0])
       nil)))

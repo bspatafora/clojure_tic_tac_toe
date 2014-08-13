@@ -64,4 +64,12 @@
   (it "Returns the winning token when a row is filled by that token"
     (should= "X" (winning-token [["O" "X" "O"]
                                  ["X" "X" "X"]
-                                 [" " " " " "]]))))
+                                 [" " " " " "]])))
+  (it "Returns the winning token when a column is filled by that token"
+    (should= "X" (winning-token [["O" "X" " "]
+                                 ["X" "X" " "]
+                                 ["O" "X" " "]])))
+  (it "Returns the winning token when a diagonal is filled by that token"
+    (should= "X" (winning-token [["O" " " "X"]
+                                 [" " "X" " "]
+                                 ["X" " " "O"]]))))
