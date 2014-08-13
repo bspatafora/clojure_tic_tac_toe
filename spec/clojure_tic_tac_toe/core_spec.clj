@@ -58,6 +58,14 @@
                                                              [" " "X" " "]
                                                              ["O" " " "X"]]))))
 
+(describe "board-full-slices"
+  (it "Returns an empty vector when there are no full slices on the passed board"
+    (should= [] (board-full-slices (create-board))))
+  (it "Returns all full slices for the passed board"
+    (should= [["O" "X" "O"] ["O" "X" "O"] ["X" "X" "X"]] (board-full-slices [[" " "O" "X"]
+                                                                             ["O" "X" "O"]
+                                                                             ["X" "O" " "]]))))
+
 (describe "winning-token"
   (it "Returns nil when no token has won"
     (should= nil (winning-token (create-board))))
