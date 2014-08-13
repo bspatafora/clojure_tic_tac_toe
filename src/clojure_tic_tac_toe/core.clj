@@ -16,7 +16,7 @@
   (assoc-in board coordinates token))
 
 (defn is-draw [board]
-  (not (some #{" "} (flatten board))))
+  (not-any? #{" "} (flatten board)))
 
 (defn full-slices [slices]
   (filterv #(not-any? #{" "} %) slices))
