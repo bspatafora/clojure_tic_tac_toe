@@ -19,7 +19,7 @@
   (not (some #{" "} (flatten board))))
 
 (defn full-slices [slices]
- (filterv #(not-any? #{" "} %) slices))
+  (filterv #(not-any? #{" "} %) slices))
 
 (defn board-columns [board]
   (apply mapv vector board))
@@ -27,6 +27,12 @@
 (defn board-diagonals [board]
   [[(get-in board [0 0]) (get-in board [1 1]) (get-in board [2 2])]
    [(get-in board [0 2]) (get-in board [1 1]) (get-in board [2 0])]])
+
+(defn winning-token [board]
+  (let [winning-row (filterv #(every? #{(first %)} %) (full-slices board))]
+    (if winning-row
+      (get-in winning-row [0 0])
+      nil)))
 
 (defn -main[]
   )

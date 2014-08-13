@@ -57,3 +57,11 @@
     (should= [["X" "X" "X"] ["O" "X" "O"]] (board-diagonals [["X" " " "O"]
                                                              [" " "X" " "]
                                                              ["O" " " "X"]]))))
+
+(describe "winning-token"
+  (it "Returns nil when no token has won"
+    (should= nil (winning-token (create-board))))
+  (it "Returns the winning token when a row is filled by that token"
+    (should= "X" (winning-token [["O" "X" "O"]
+                                 ["X" "X" "X"]
+                                 [" " " " " "]]))))
