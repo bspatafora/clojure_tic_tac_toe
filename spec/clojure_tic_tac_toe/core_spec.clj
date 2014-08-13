@@ -43,3 +43,11 @@
     (should= [["O" "X" "O"]] (full-slices [["X" " " "X"]
                                            ["O" "X" "O"]
                                            [" " " " " "]]))))
+
+(describe "board-columns"
+  (it "Returns column slices for the passed board"
+    (should= [["X" "O" "X"]
+              ["X" "O" "X"]
+              ["X" "O" "X"]] (board-columns [["X" "X" "X"]
+                                             ["O" "O" "O"]
+                                             ["X" "X" "X"]]))))

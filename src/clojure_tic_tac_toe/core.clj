@@ -21,5 +21,8 @@
 (defn full-slices [slices]
  (filterv #(not-any? #{" "} %) slices))
 
+(defn board-columns [board]
+  (apply mapv vector board))
+
 (defn -main[]
   )
