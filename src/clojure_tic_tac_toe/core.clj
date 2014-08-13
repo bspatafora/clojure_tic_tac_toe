@@ -1,9 +1,9 @@
 (ns clojure_tic_tac_toe.core)
 
 (defn create-board []
-  [[" ", " ", " "],
-   [" ", " ", " "],
-   [" ", " ", " "]])
+  [[" " " " " "]
+   [" " " " " "]
+   [" " " " " "]])
 
 (defn string-from-board [board]
   (loop [board board
@@ -12,11 +12,14 @@
       string
       (recur (rest board) (str string (clojure.string/join "|" (first board)) "\n")))))
 
-(defn place-move [token, coordinates, board]
+(defn place-move [token coordinates board]
   (assoc-in board coordinates token))
 
 (defn is-draw [board]
   (not (some #{" "} (flatten board))))
+
+(defn full-slices [slices]
+ (filterv #(not-any? #{" "} %) slices))
 
 (defn -main[]
   )
