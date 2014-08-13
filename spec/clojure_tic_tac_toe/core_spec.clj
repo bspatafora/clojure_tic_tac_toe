@@ -51,3 +51,9 @@
               ["X" "O" "X"]] (board-columns [["X" "X" "X"]
                                              ["O" "O" "O"]
                                              ["X" "X" "X"]]))))
+
+(describe "board-diagonals"
+  (it "Returns diagonal slices for the passed 3x3 board"
+    (should= [["X" "X" "X"] ["O" "X" "O"]] (board-diagonals [["X" " " "O"]
+                                                             [" " "X" " "]
+                                                             ["O" " " "X"]]))))

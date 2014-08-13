@@ -24,5 +24,9 @@
 (defn board-columns [board]
   (apply mapv vector board))
 
+(defn board-diagonals [board]
+  [[(get-in board [0 0]) (get-in board [1 1]) (get-in board [2 2])]
+   [(get-in board [0 2]) (get-in board [1 1]) (get-in board [2 0])]])
+
 (defn -main[]
   )
