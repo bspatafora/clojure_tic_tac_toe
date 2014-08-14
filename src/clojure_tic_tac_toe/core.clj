@@ -47,19 +47,31 @@
   (let [first-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [0 %1]) (nth board 0)))
         second-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [1 %1]) (nth board 1)))
         third-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [2 %1]) (nth board 2)))]
-  (concat first-row-open-coordinates second-row-open-coordinates third-row-open-coordinates)))
+    (concat first-row-open-coordinates second-row-open-coordinates third-row-open-coordinates)))
 
 (defn random-move [board]
   (rand-nth (open-coordinates board)))
 
 (defn solicit-move [board]
-  (loop [input (read-line)]
-    (if (re-find #"[0-8]" input)
+  (println "Pick a space (0-8):")
+  (let [input (read-line)]
+    (if (re-find #"^[0-8]$" input)
       (cond
         (< (read-string input) 3) [0 (mod (read-string input) 3)]
-        (< (read-string input) 5) [1 (mod (read-string input) 3)]
+        (< (read-string input) 6) [1 (mod (read-string input) 3)]
         :else [2 (mod (read-string input) 3)])
-      (recur (read-line)))))
+      (solicit-move board))))
 
 (defn -main[]
-  )
+  (loop [board (create-board)
+         token "X"
+         move-strategy solicit-move]
+    (do
+      (println (string-from-board board))
+      (if (or (winning-token board) (is-draw board))
+        (cond
+          (winning-token board) (println (str (winning-token board) " wins!"))
+          (is-draw board) (println "Tie game."))
+        (cond
+          (= token "X") (recur (place-token token (move-strategy board) board) "O" random-move)
+          (= token "O") (recur (place-token token (move-strategy board) board) "X" solicit-move))))))
