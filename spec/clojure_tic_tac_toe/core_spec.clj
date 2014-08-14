@@ -81,3 +81,9 @@
     (should= "X" (winning-token [["O" " " "X"]
                                  [" " "X" " "]
                                  ["X" " " "O"]]))))
+
+(describe "open-coordinates"
+  (it "Returns the unfilled coordinates for the passed board"
+    (should= [[0 1] [1 2] [2 0]] (open-coordinates [["X" " " "X"]
+                                                    ["O" "X" " "]
+                                                    [" " "X" "O"]]))))

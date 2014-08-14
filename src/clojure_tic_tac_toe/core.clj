@@ -40,5 +40,11 @@
       (get-in winning-row [0 0])
       nil)))
 
+(defn open-coordinates [board]
+  (let [first-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [0 %1]) (nth board 0)))
+        second-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [1 %1]) (nth board 1)))
+        third-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [2 %1]) (nth board 2)))]
+  (into first-row-open-coordinates (into second-row-open-coordinates third-row-open-coordinates))))
+
 (defn -main[]
   )
