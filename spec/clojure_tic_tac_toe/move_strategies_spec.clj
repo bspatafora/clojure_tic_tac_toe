@@ -3,12 +3,6 @@
             [clojure_tic_tac_toe.move-strategies :refer :all]
             [clojure_tic_tac_toe.board :refer :all]))
 
-(describe "random-move"
-  (it "Returns a coordinate selected from a random open space on the passed board"
-    (should= [1 1] (random-move [["X" "O" "X"]
-                                 ["O" " " "O"]
-                                 ["X" "O" "X"]]))))
-
 (describe "is-coordinate-open"
   (it "Returns false if there is a token at the passed coordinate on the passed board"
     (should= false (is-coordinate-open [0 0] [["X" " " " "]
@@ -26,3 +20,23 @@
 (describe "solicit-move"
   (it "Returns a coordinate once a move corresponding to an open space on the passed board is input"
     (should= [2 0] (with-in-str "6" (solicit-move (create-board))))))
+
+(describe "score"
+  (it "Returns 0 when the passed board represents a draw"
+    (should= 0 (score [["X" "X" "O"]
+                       ["O" "O" "X"]
+                       ["X" "O" "X"]])))
+  (it "Returns 1 when the passed board represents a win for O"
+    (should= 1 (score [["O" " " " "]
+                       [" " "O" " "]
+                       [" " " " "O"]])))
+  (it "Returns -1 when the passed board represents a win for X"
+    (should= -1 (score [["X" " " " "]
+                        [" " "X" " "]
+                        [" " " " "X"]]))))
+
+(describe "random-move"
+  (it "Returns a coordinate selected from a random open space on the passed board"
+    (should= [1 1] (random-move [["X" "O" "X"]
+                                 ["O" " " "O"]
+                                 ["X" "O" "X"]]))))
