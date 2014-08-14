@@ -16,13 +16,13 @@
                                                            ["O" "X" "O"]
                                                            ["X" "O" "X"]]))))
 
-(describe "place-move"
-  (it "Returns a board based on the passed board with the passed move placed on it"
+(describe "place-token"
+  (it "Returns a board based on the passed board with the passed token placed at the passed coordinates"
     (should= [["X" " " " "]
               [" " "O" " "]
-              [" " " " " "]] (place-move "O" [1 1] [["X" " " " "]
-                                                    [" " " " " "]
-                                                    [" " " " " "]]))))
+              [" " " " " "]] (place-token "O" [1 1] [["X" " " " "]
+                                                     [" " " " " "]
+                                                     [" " " " " "]]))))
 
 (describe "is-draw"
   (it "Returns true when the board is full"

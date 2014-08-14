@@ -12,7 +12,7 @@
       string
       (recur (rest board) (str string (clojure.string/join "|" (first board)) "\n")))))
 
-(defn place-move [token coordinates board]
+(defn place-token [token coordinates board]
   (assoc-in board coordinates token))
 
 (defn is-draw [board]
