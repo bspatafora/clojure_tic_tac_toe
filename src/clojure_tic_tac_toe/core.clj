@@ -46,5 +46,8 @@
         third-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [2 %1]) (nth board 2)))]
   (into first-row-open-coordinates (into second-row-open-coordinates third-row-open-coordinates))))
 
+(defn random-move [board]
+  (rand-nth (open-coordinates board)))
+
 (defn -main[]
   )

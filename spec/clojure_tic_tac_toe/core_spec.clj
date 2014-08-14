@@ -87,3 +87,9 @@
     (should= [[0 1] [1 2] [2 0]] (open-coordinates [["X" " " "X"]
                                                     ["O" "X" " "]
                                                     [" " "X" "O"]]))))
+
+(describe "random-move"
+  (it "Returns a set of coordinates selected from a random open space on the passed board"
+    (should= [1 1] (random-move [["X" "O" "X"]
+                                 ["O" " " "O"]
+                                 ["X" "O" "X"]]))))
