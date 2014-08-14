@@ -5,24 +5,23 @@
    [" " " " " "]
    [" " " " " "]])
 
+(defn string-from-row [row]
+  (clojure.string/join "|" row) )
+
+(defn string-from-rows [rows]
+  (clojure.string/join "\n" rows))
+
 (defn string-from-board [board]
-  (loop [board board
-         string "\n"]
-    (if (empty? board)
-      string
-      (recur (rest board) (str string (clojure.string/join "|" (first board)) "\n")))))
+  (str "\n" (string-from-rows (map string-from-row board)) "\n"))
 
 (defn place-token [token coordinates board]
   (assoc-in board coordinates token))
 
-(defn is-draw [board]
-  (not-any? #{" "} (flatten board)))
-
 (defn full-slices [slices]
-  (filterv #(not-any? #{" "} %) slices))
+  (filter #(not-any? #{" "} %) slices))
 
 (defn board-columns [board]
-  (apply mapv vector board))
+  (apply map vector board))
 
 (defn board-diagonals [board]
   [[(get-in board [0 0]) (get-in board [1 1]) (get-in board [2 2])]
@@ -32,19 +31,23 @@
   (let [full-row-slices (full-slices board)
         full-column-slices (full-slices (board-columns board))
         full-diagonal-slices (full-slices (board-diagonals board))]
-    (into full-row-slices (into full-column-slices full-diagonal-slices))))
+    (concat full-row-slices full-column-slices full-diagonal-slices)))
 
 (defn winning-token [board]
   (let [winning-row (filterv #(every? #{(first %)} %) (board-full-slices board))]
-    (if winning-row
-      (get-in winning-row [0 0])
-      nil)))
+    (when winning-row
+      (get-in winning-row [0 0]))))
+
+(defn is-draw [board]
+  (if-not (= (winning-token board) nil)
+    false
+    (not-any? #{" "} (flatten board))))
 
 (defn open-coordinates [board]
   (let [first-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [0 %1]) (nth board 0)))
         second-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [1 %1]) (nth board 1)))
         third-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [2 %1]) (nth board 2)))]
-  (into first-row-open-coordinates (into second-row-open-coordinates third-row-open-coordinates))))
+  (concat first-row-open-coordinates second-row-open-coordinates third-row-open-coordinates)))
 
 (defn random-move [board]
   (rand-nth (open-coordinates board)))

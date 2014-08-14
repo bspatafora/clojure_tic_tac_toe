@@ -24,33 +24,21 @@
                                                      [" " " " " "]
                                                      [" " " " " "]]))))
 
-(describe "is-draw"
-  (it "Returns true when the board is full"
-    (should= true (is-draw [["X" "O" "X"]
-                            ["O" "X" "O"]
-                            ["X" "O" "X"]])))
-  (it "Returns false when the board is empty"
-    (should= false (is-draw (create-board))))
-  (it "Returns false when the board is not full"
-    (should= false (is-draw [["X" " " " "]
-                             [" " "X" " "]
-                             [" " " " "X"]]))))
-
 (describe "full-slices"
-  (it "Returns an empty vector when no slices are full of tokens"
-    (should= [] (full-slices (create-board))))
+  (it "Returns an empty list when no slices are full of tokens"
+    (should= '() (full-slices (create-board))))
   (it "Returns the slices that are full of tokens"
-    (should= [["O" "X" "O"]] (full-slices [["X" " " "X"]
-                                           ["O" "X" "O"]
-                                           [" " " " " "]]))))
+    (should= '(["O" "X" "O"]) (full-slices [["X" " " "X"]
+                                            ["O" "X" "O"]
+                                            [" " " " " "]]))))
 
 (describe "board-columns"
   (it "Returns column slices for the passed board"
-    (should= [["X" "O" "X"]
-              ["X" "O" "X"]
-              ["X" "O" "X"]] (board-columns [["X" "X" "X"]
-                                             ["O" "O" "O"]
-                                             ["X" "X" "X"]]))))
+    (should= '(["X" "O" "X"]
+               ["X" "O" "X"]
+               ["X" "O" "X"]) (board-columns [["X" "X" "X"]
+                                              ["O" "O" "O"]
+                                              ["X" "X" "X"]]))))
 
 (describe "board-diagonals"
   (it "Returns diagonal slices for the passed 3x3 board"
@@ -59,12 +47,12 @@
                                                              ["O" " " "X"]]))))
 
 (describe "board-full-slices"
-  (it "Returns an empty vector when there are no full slices on the passed board"
-    (should= [] (board-full-slices (create-board))))
+  (it "Returns an empty list when there are no full slices on the passed board"
+    (should= '() (board-full-slices (create-board))))
   (it "Returns all full slices for the passed board"
-    (should= [["O" "X" "O"] ["O" "X" "O"] ["X" "X" "X"]] (board-full-slices [[" " "O" "X"]
-                                                                             ["O" "X" "O"]
-                                                                             ["X" "O" " "]]))))
+    (should= '(["O" "X" "O"] ["O" "X" "O"] ["X" "X" "X"]) (board-full-slices [[" " "O" "X"]
+                                                                              ["O" "X" "O"]
+                                                                              ["X" "O" " "]]))))
 
 (describe "winning-token"
   (it "Returns nil when no token has won"
@@ -82,11 +70,27 @@
                                  [" " "X" " "]
                                  ["X" " " "O"]]))))
 
+(describe "is-draw"
+  (it "Returns true when the board is full and there is no winner"
+    (should= true (is-draw [["X" "X" "O"]
+                            ["O" "O" "X"]
+                            ["X" "O" "X"]])))
+  (it "Returns false when the board is empty"
+    (should= false (is-draw (create-board))))
+  (it "Returns false when the board is not full"
+    (should= false (is-draw [["X" " " " "]
+                             [" " "X" " "]
+                             [" " " " "X"]])))
+  (it "Returns false when the board is full but there is a winner"
+    (should= false (is-draw [["X" "O" "O"]
+                             ["O" "X" "O"]
+                             ["O" "O" "X"]]))))
+
 (describe "open-coordinates"
   (it "Returns the unfilled coordinates for the passed board"
-    (should= [[0 1] [1 2] [2 0]] (open-coordinates [["X" " " "X"]
-                                                    ["O" "X" " "]
-                                                    [" " "X" "O"]]))))
+    (should= '([0 1] [1 2] [2 0]) (open-coordinates [["X" " " "X"]
+                                                     ["O" "X" " "]
+                                                     [" " "X" "O"]]))))
 
 (describe "random-move"
   (it "Returns a set of coordinates selected from a random open space on the passed board"
