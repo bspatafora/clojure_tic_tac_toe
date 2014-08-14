@@ -14,8 +14,8 @@
 (defn string-from-board [board]
   (str "\n" (string-from-rows (map string-from-row board)) "\n"))
 
-(defn place-token [token coordinates board]
-  (assoc-in board coordinates token))
+(defn place-token [token coordinate board]
+  (assoc-in board coordinate token))
 
 (defn full-slices [slices]
   (filter #(not-any? #{" "} %) slices))
@@ -52,14 +52,22 @@
 (defn random-move [board]
   (rand-nth (open-coordinates board)))
 
+(defn is-coordinate-open [coordinate board]
+  (if (some #{coordinate} (open-coordinates board))
+    true
+    false))
+
+(defn coordinate-from-integer [integer]
+  (cond
+    (< integer 3) [0 (mod integer 3)]
+    (< integer 6) [1 (mod integer 3)]
+    :else [2 (mod integer 3)]))
+
 (defn solicit-move [board]
   (println "Pick a space (0-8):")
   (let [input (read-line)]
-    (if (re-find #"^[0-8]$" input)
-      (cond
-        (< (read-string input) 3) [0 (mod (read-string input) 3)]
-        (< (read-string input) 6) [1 (mod (read-string input) 3)]
-        :else [2 (mod (read-string input) 3)])
+    (if (and (re-find #"^[0-8]$" input) (is-coordinate-open (coordinate-from-integer (read-string input)) board))
+      (coordinate-from-integer (read-string input))
       (solicit-move board))))
 
 (defn -main[]
