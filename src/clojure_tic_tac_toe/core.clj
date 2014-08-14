@@ -31,9 +31,8 @@
 (defn board-full-slices [board]
   (let [full-row-slices (full-slices board)
         full-column-slices (full-slices (board-columns board))
-        full-diagonal-slices (full-slices (board-diagonals board))
-        full-row-and-full-column-slices (into full-row-slices full-column-slices)]
-    (into full-row-and-full-column-slices full-diagonal-slices)))
+        full-diagonal-slices (full-slices (board-diagonals board))]
+    (into full-row-slices (into full-column-slices full-diagonal-slices))))
 
 (defn winning-token [board]
   (let [winning-row (filterv #(every? #{(first %)} %) (board-full-slices board))]
