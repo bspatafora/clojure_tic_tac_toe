@@ -1,74 +1,8 @@
-(ns clojure_tic_tac_toe.core)
-
-(defn create-board []
-  [[" " " " " "]
-   [" " " " " "]
-   [" " " " " "]])
-
-(defn string-from-row [row]
-  (clojure.string/join "|" row) )
-
-(defn string-from-rows [rows]
-  (clojure.string/join "\n" rows))
-
-(defn string-from-board [board]
-  (str "\n" (string-from-rows (map string-from-row board)) "\n"))
-
-(defn place-token [token coordinate board]
-  (assoc-in board coordinate token))
-
-(defn full-slices [slices]
-  (filter #(not-any? #{" "} %) slices))
-
-(defn board-columns [board]
-  (apply map vector board))
-
-(defn board-diagonals [board]
-  [[(get-in board [0 0]) (get-in board [1 1]) (get-in board [2 2])]
-   [(get-in board [0 2]) (get-in board [1 1]) (get-in board [2 0])]])
-
-(defn board-full-slices [board]
-  (let [full-row-slices (full-slices board)
-        full-column-slices (full-slices (board-columns board))
-        full-diagonal-slices (full-slices (board-diagonals board))]
-    (concat full-row-slices full-column-slices full-diagonal-slices)))
-
-(defn winning-token [board]
-  (let [winning-row (filterv #(every? #{(first %)} %) (board-full-slices board))]
-    (when winning-row
-      (get-in winning-row [0 0]))))
-
-(defn is-draw [board]
-  (if-not (= (winning-token board) nil)
-    false
-    (not-any? #{" "} (flatten board))))
-
-(defn open-coordinates [board]
-  (let [first-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [0 %1]) (nth board 0)))
-        second-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [1 %1]) (nth board 1)))
-        third-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [2 %1]) (nth board 2)))]
-    (concat first-row-open-coordinates second-row-open-coordinates third-row-open-coordinates)))
-
-(defn random-move [board]
-  (rand-nth (open-coordinates board)))
-
-(defn is-coordinate-open [coordinate board]
-  (if (some #{coordinate} (open-coordinates board))
-    true
-    false))
-
-(defn coordinate-from-integer [integer]
-  (cond
-    (< integer 3) [0 (mod integer 3)]
-    (< integer 6) [1 (mod integer 3)]
-    :else [2 (mod integer 3)]))
-
-(defn solicit-move [board]
-  (println "Pick a space (0-8):")
-  (let [input (read-line)]
-    (if (and (re-find #"^[0-8]$" input) (is-coordinate-open (coordinate-from-integer (read-string input)) board))
-      (coordinate-from-integer (read-string input))
-      (solicit-move board))))
+(ns clojure_tic_tac_toe.core
+  (:require [clojure_tic_tac_toe.board :refer :all]
+            [clojure_tic_tac_toe.strings :refer :all]
+            [clojure_tic_tac_toe.rules :refer :all]
+            [clojure_tic_tac_toe.move-strategies :refer :all]))
 
 (defn -main[]
   (loop [board (create-board)
