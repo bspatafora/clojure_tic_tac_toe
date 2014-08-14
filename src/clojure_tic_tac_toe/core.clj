@@ -49,5 +49,14 @@
 (defn random-move [board]
   (rand-nth (open-coordinates board)))
 
+(defn solicit-move [board]
+  (loop [input (read-line)]
+    (if (re-find #"[0-8]" input)
+      (cond
+        (< (read-string input) 3) [0 (mod (read-string input) 3)]
+        (< (read-string input) 5) [1 (mod (read-string input) 3)]
+        :else [2 (mod (read-string input) 3)])
+      (recur (read-line)))))
+
 (defn -main[]
   )

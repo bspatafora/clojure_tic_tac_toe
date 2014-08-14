@@ -93,3 +93,7 @@
     (should= [1 1] (random-move [["X" "O" "X"]
                                  ["O" " " "O"]
                                  ["X" "O" "X"]]))))
+
+(describe "solicit-move"
+  (it "Returns a set of coordinates once a move corresponding to an open space on the passed board is input"
+    (should= [2 0] (with-in-str "6" (solicit-move (create-board))))))
