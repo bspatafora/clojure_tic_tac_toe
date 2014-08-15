@@ -19,7 +19,8 @@
 
 (describe "solicit-move"
   (it "Returns a coordinate once a move corresponding to an open space on the passed board is input"
-    (should= [2 0] (with-in-str "6" (solicit-move (create-board))))))
+    (with-out-str 
+      (should= [2 0] (with-in-str "6" (solicit-move (create-board)))))))
 
 (describe "random-move"
   (it "Returns a coordinate selected from a random open space on the passed board"
@@ -47,6 +48,6 @@
 
 (describe "minimax-move"
   (it "Returns the coordinate of the candidate move with the best minimax score"
-    (should= [1, 0] (minimax-move [["X" "X" "O"]
+    (should= [1 0] (minimax-move [["X" "X" "O"]
                                    [" " "O" " "]
                                    ["X" " " " "]]))))
