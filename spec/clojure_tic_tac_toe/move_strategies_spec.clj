@@ -10,8 +10,8 @@
                                               [" " " " " "]])))
   (it "Returns true if there is no token at the passed coordinate on the passed board"
     (should= true (is-coordinate-open [0 1] [["X" " " " "]
-                                              [" " " " " "]
-                                              [" " " " " "]]))))
+                                             [" " " " " "]
+                                             [" " " " " "]]))))
 
 (describe "coordinate-from-integer"
   (it "Returns a coordinate corresponding to the integer (0-8)"
@@ -21,22 +21,32 @@
   (it "Returns a coordinate once a move corresponding to an open space on the passed board is input"
     (should= [2 0] (with-in-str "6" (solicit-move (create-board))))))
 
-(describe "score"
-  (it "Returns 0 when the passed board represents a draw"
-    (should= 0 (score [["X" "X" "O"]
-                       ["O" "O" "X"]
-                       ["X" "O" "X"]])))
-  (it "Returns 1 when the passed board represents a win for O"
-    (should= 1 (score [["O" " " " "]
-                       [" " "O" " "]
-                       [" " " " "O"]])))
-  (it "Returns -1 when the passed board represents a win for X"
-    (should= -1 (score [["X" " " " "]
-                        [" " "X" " "]
-                        [" " " " "X"]]))))
-
 (describe "random-move"
   (it "Returns a coordinate selected from a random open space on the passed board"
     (should= [1 1] (random-move [["X" "O" "X"]
                                  ["O" " " "O"]
                                  ["X" "O" "X"]]))))
+
+(describe "minimax"
+  (it "Returns 0 when the passed board represents a draw"
+    (should= 0 (minimax [["X" "X" "O"]
+                         ["O" "O" "X"]
+                         ["X" "O" "X"]] true)))
+  (it "Returns 1 when the passed board represents a win for O"
+    (should= 1 (minimax [["O" " " " "]
+                         [" " "O" " "]
+                         [" " " " "O"]] true)))
+  (it "Returns -1 when the passed board represents a win for X"
+    (should= -1 (minimax [["X" " " " "]
+                          [" " "X" " "]
+                          [" " " " "X"]] true)))
+  (it "Returns the correct score when the passed a board that isn’t in an end-game state"
+    (should= 0 (minimax [["X" "X" "O"]
+                         [" " "O" " "]
+                         ["X" " " " "]] true))))
+
+(describe "minimax-move"
+  (it "Returns the coordinate of the candidate move with the best minimax score"
+    (should= [1, 0] (minimax-move [["X" "X" "O"]
+                                   [" " "O" " "]
+                                   ["X" " " " "]]))))

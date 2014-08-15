@@ -34,3 +34,15 @@
     (should= false (is-draw [["X" "O" "O"]
                              ["O" "X" "O"]
                              ["O" "O" "X"]]))))
+
+(describe "is-game-over"
+  (it "Returns false when the game is not over"
+    (should= false (is-game-over (create-board))))
+  (it "Returns true when there is a winning token"
+    (should= true (is-game-over [["X" " " " "]
+                                 [" " "X" " "]
+                                 [" " " " "X"]])))
+  (it "Returns true when there is a draw"
+    (should= true (is-game-over [["X" "X" "O"]
+                                 ["O" "O" "X"]
+                                 ["X" "O" "X"]]))))

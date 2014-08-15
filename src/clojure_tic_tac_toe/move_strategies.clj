@@ -20,7 +20,7 @@
       (coordinate-from-integer (read-string input))
       (solicit-move board))))
 
-(defn score [board]
+(defn- score [board]
   (cond
     (is-draw board) 0
     (= (winning-token board) "O") 1
@@ -28,3 +28,19 @@
 
 (defn random-move [board]
   (rand-nth (open-coordinates board)))
+
+(defn minimax [board maximizing]
+  (if (is-game-over board)
+    (score board)
+    (if maximizing
+      (let [worst-score -1]
+        (apply max (conj (map #(minimax (place-token "O" % board) false) (open-coordinates board)) worst-score)))
+      (let [worst-score 1]
+        (apply min (conj (map #(minimax (place-token "X" % board) true) (open-coordinates board)) worst-score))))))
+
+(defn minimax-move [board]
+  (let [candidates (open-coordinates board)
+        scores (map #(minimax (place-token "O" % board) false) candidates)
+        best-score (apply max scores)
+        best-score-indexes (keep-indexed #(if (= best-score %2) %1) scores)]
+    (nth candidates (first best-score-indexes))))

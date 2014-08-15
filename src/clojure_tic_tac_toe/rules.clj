@@ -10,3 +10,8 @@
   (if-not (= (winning-token board) nil)
     false
     (not-any? #{" "} (flatten board))))
+
+(defn is-game-over [board]
+  (if (or (is-draw board) (winning-token board))
+    true
+    false))
