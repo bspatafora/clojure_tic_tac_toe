@@ -5,7 +5,7 @@
 
 (describe "string-from-board"
   (it "Returns a string representation of an empty 3x3 board vector"
-    (should= "\n | | \n | | \n | | \n" (string-from-board (create-board))))
+    (should= "\n0|1|2\n3|4|5\n6|7|8\n" (string-from-board (create-board))))
   (it "Returns a string representation of a filled 3x3 board vector"
     (should= "\nX|O|X\nO|X|O\nX|O|X\n" (string-from-board [["X" "O" "X"]
                                                            ["O" "X" "O"]
