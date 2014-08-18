@@ -2,7 +2,8 @@
   (:require [clojure_tic_tac_toe.board :refer :all]
             [clojure_tic_tac_toe.strings :refer :all]
             [clojure_tic_tac_toe.rules :refer :all]
-            [clojure_tic_tac_toe.move-strategies :refer :all]))
+            [clojure_tic_tac_toe.move-strategies :refer :all])
+  (:gen-class))
 
 (defn -main[]
   (loop [board (create-board)
