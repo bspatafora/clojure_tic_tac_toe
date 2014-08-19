@@ -1,7 +1,7 @@
-(ns clojure_tic_tac_toe.move-strategies-spec
+(ns clojure_tic_tac_toe.core.move-strategies-spec
   (:require [speclj.core :refer :all]
-            [clojure_tic_tac_toe.move-strategies :refer :all]
-            [clojure_tic_tac_toe.board :refer :all]))
+            [clojure_tic_tac_toe.core.move-strategies :refer :all]
+            [clojure_tic_tac_toe.core.board :refer :all]))
 
 (describe "is-coordinate-open"
   (it "Returns false if there is a token at the passed coordinate on the passed board"

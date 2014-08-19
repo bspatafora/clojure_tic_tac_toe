@@ -1,6 +1,6 @@
-(ns clojure_tic_tac_toe.board-spec
+(ns clojure_tic_tac_toe.core.board-spec
   (:require [speclj.core :refer :all]
-            [clojure_tic_tac_toe.board :refer :all]))
+            [clojure_tic_tac_toe.core.board :refer :all]))
 
 (describe "create-board"
   (it "Returns an empty, 3x3 vector"

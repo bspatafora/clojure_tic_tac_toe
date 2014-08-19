@@ -1,6 +1,6 @@
-(ns clojure_tic_tac_toe.move-strategies
-  (:require [clojure_tic_tac_toe.board :refer :all]
-            [clojure_tic_tac_toe.rules :refer :all]))
+(ns clojure_tic_tac_toe.core.move-strategies
+  (:require [clojure_tic_tac_toe.core.board :refer :all]
+            [clojure_tic_tac_toe.core.rules :refer :all]))
 
 (defn is-coordinate-open [coordinate board]
   (if (some #{coordinate} (open-coordinates board))

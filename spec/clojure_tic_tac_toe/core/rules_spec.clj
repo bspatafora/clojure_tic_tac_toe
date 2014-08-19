@@ -1,7 +1,7 @@
-(ns clojure_tic_tac_toe.rules-spec
+(ns clojure_tic_tac_toe.core.rules-spec
   (:require [speclj.core :refer :all]
-            [clojure_tic_tac_toe.rules :refer :all]
-            [clojure_tic_tac_toe.board :refer :all]))
+            [clojure_tic_tac_toe.core.rules :refer :all]
+            [clojure_tic_tac_toe.core.board :refer :all]))
 
 (describe "winning-token"
   (it "Returns nil when no token has won"

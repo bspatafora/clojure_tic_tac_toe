@@ -1,4 +1,4 @@
-(ns clojure_tic_tac_toe.board)
+(ns clojure_tic_tac_toe.core.board)
 
 (defn create-board []
   [[" " " " " "]

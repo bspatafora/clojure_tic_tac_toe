@@ -1,5 +1,5 @@
-(ns clojure_tic_tac_toe.rules
-  (:require [clojure_tic_tac_toe.board :refer :all]))
+(ns clojure_tic_tac_toe.core.rules
+  (:require [clojure_tic_tac_toe.core.board :refer :all]))
 
 (defn winning-token [board]
   (let [winning-row (filterv #(every? #{(first %)} %) (board-full-slices board))]

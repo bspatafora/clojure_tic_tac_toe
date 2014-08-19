@@ -1,7 +1,7 @@
-(ns clojure_tic_tac_toe.presenter-spec
+(ns clojure_tic_tac_toe.console.presenter-spec
   (:require [speclj.core :refer :all]
-            [clojure_tic_tac_toe.presenter :refer :all]
-            [clojure_tic_tac_toe.board :refer :all]))
+            [clojure_tic_tac_toe.console.presenter :refer :all]
+            [clojure_tic_tac_toe.core.board :refer :all]))
 
 (describe "string-from-board"
   (it "Returns a string representation (with numbered spaces) of an empty 3x3 board vector"

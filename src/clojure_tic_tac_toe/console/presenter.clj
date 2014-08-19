@@ -1,4 +1,4 @@
-(ns clojure_tic_tac_toe.presenter)
+(ns clojure_tic_tac_toe.console.presenter)
 
 (defn- colorize [text color-code]
   (str "\033[" color-code "m" text "\033[0m"))
