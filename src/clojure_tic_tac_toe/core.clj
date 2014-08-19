@@ -9,12 +9,11 @@
   (loop [board (create-board)
          token "X"
          move-strategy solicit-move]
-    (do
-      (println (string-from-board board))
-      (if (is-game-over board)
-        (cond
-          (winning-token board) (println (str (winning-token board) " wins!"))
-          (is-draw board) (println "Tie game."))
-        (cond
-          (= token "X") (recur (place-token token (move-strategy board) board) "O" minimax-move)
-          (= token "O") (recur (place-token token (move-strategy board) board) "X" solicit-move))))))
+    (println (string-from-board board))
+    (if (is-game-over board)
+      (cond
+        (winning-token board) (println (str (winning-token board) " wins!"))
+        (is-draw board) (println "Tie game."))
+      (cond
+        (= token "X") (recur (place-token token (move-strategy board) board) "O" minimax-move)
+        (= token "O") (recur (place-token token (move-strategy board) board) "X" solicit-move)))))
