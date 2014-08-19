@@ -2,10 +2,10 @@
   (:require [clojure_tic_tac_toe.core.board :refer :all]
             [clojure_tic_tac_toe.core.rules :refer :all]))
 
-(defn is-coordinate-open [coordinate board]
-  (if (some #{coordinate} (open-coordinates board))
-    true
-    false))
+(defn integer-from-input [input]
+  (try
+    (Integer/parseInt input)
+    (catch NumberFormatException e nil)))
 
 (defn coordinate-from-integer [integer]
   (cond
@@ -13,11 +13,17 @@
     (< integer 6) [1 (mod integer 3)]
     :else [2 (mod integer 3)]))
 
+(defn input-on-board [input]
+  (re-find #"^[0-8]$" input))
+
+(defn is-input-valid-move [input board]
+  (and (input-on-board input) (is-coordinate-open (coordinate-from-integer (integer-from-input input)) board)))
+
 (defn solicit-move [board]
   (println "Pick a space (0-8):")
   (let [input (read-line)]
-    (if (and (re-find #"^[0-8]$" input) (is-coordinate-open (coordinate-from-integer (read-string input)) board))
-      (coordinate-from-integer (read-string input))
+    (if (is-input-valid-move input board)
+      (coordinate-from-integer (integer-from-input input))
       (solicit-move board))))
 
 (defn- score [board]

@@ -29,3 +29,8 @@
         second-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [1 %1]) (nth board 1)))
         third-row-open-coordinates (vec (keep-indexed #(if (= " " %2) [2 %1]) (nth board 2)))]
     (concat first-row-open-coordinates second-row-open-coordinates third-row-open-coordinates)))
+
+(defn is-coordinate-open [coordinate board]
+  (if (some #{coordinate} (open-coordinates board))
+    true
+    false))

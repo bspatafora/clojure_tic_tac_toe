@@ -51,3 +51,13 @@
     (should= '([0 1] [1 2] [2 0]) (open-coordinates [["X" " " "X"]
                                                      ["O" "X" " "]
                                                      [" " "X" "O"]]))))
+
+(describe "is-coordinate-open"
+  (it "Returns false if there is a token at the passed coordinate on the passed board"
+    (should= false (is-coordinate-open [0 0] [["X" " " " "]
+                                              [" " " " " "]
+                                              [" " " " " "]])))
+  (it "Returns true if there is no token at the passed coordinate on the passed board"
+    (should= true (is-coordinate-open [0 1] [["X" " " " "]
+                                             [" " " " " "]
+                                             [" " " " " "]]))))
