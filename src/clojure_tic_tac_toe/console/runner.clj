@@ -2,12 +2,13 @@
   (:require [clojure_tic_tac_toe.core.board :refer :all]
             [clojure_tic_tac_toe.console.presenter :refer :all]
             [clojure_tic_tac_toe.core.rules :refer :all]
-            [clojure_tic_tac_toe.core.move-strategies :refer :all]))
+            [clojure_tic_tac_toe.core.unbeatable-ai :refer :all]
+            [clojure_tic_tac_toe.console.player :refer :all]))
 
 (defn- end-game [board]
   (cond
-    (winning-token board) (println (str (winning-token board) " wins!"))
-    (is-draw board) (println "Tie game.")))
+    (winning-token board) (winning-token-message (winning-token board))
+    (is-draw board) (tie-game-message)))
 
 (defn- next-token [token]
   (cond
@@ -23,7 +24,7 @@
   (loop [board (create-board)
          token "X"
          move-strategy solicit-move]
-    (println (string-from-board board))
+    (display-board board)
     (if (is-game-over board)
       (end-game board)
       (recur (place-token token (move-strategy board) board) (next-token token) (next-move-strategy move-strategy)))))
@@ -33,6 +34,6 @@
     (if play
       (do
         (game-loop)
-        (println "Play again? (y/n)")
+        (play-again-message)
         (recur (= (read-line) "y")))
-      (println "Thanks for playing!"))))
+      (thanks-for-playing-message))))
