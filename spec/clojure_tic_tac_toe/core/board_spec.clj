@@ -16,14 +16,6 @@
                                                      [" " " " " "]
                                                      [" " " " " "]]))))
 
-(describe "full-slices"
-  (it "Returns an empty list when no slices are full of tokens"
-    (should= '() (full-slices (create-board))))
-  (it "Returns the slices that are full of tokens"
-    (should= '(["O" "X" "O"]) (full-slices [["X" " " "X"]
-                                            ["O" "X" "O"]
-                                            [" " " " " "]]))))
-
 (describe "board-columns"
   (it "Returns column slices for the passed board"
     (should= '(["X" "O" "X"]
@@ -38,6 +30,12 @@
                                                              [" " "X" " "]
                                                              ["O" " " "X"]]))))
 
+(describe "full-slices"
+  (it "Returns an empty list when no slices are full of tokens"
+    (should= '() (full-slices (create-board))))
+  (it "Returns the slices that are full of tokens"
+    (should= '(["O" "X" "O"]) (full-slices [["X" " " "X"] ["O" "X" "O"] [" " " " " "]]))))
+
 (describe "board-full-slices"
   (it "Returns an empty list when there are no full slices on the passed board"
     (should= '() (board-full-slices (create-board))))
@@ -47,10 +45,14 @@
                                                                               ["X" "O" " "]]))))
 
 (describe "open-coordinates"
-  (it "Returns the unfilled coordinates for the passed board"
-    (should= '([0 1] [1 2] [2 0]) (open-coordinates [["X" " " "X"]
-                                                     ["O" "X" " "]
-                                                     [" " "X" "O"]]))))
+  (it "Returns the open coordinates for the passed slice"
+    (should= '([0 2]) (open-coordinates ["X" "O" " "] 0))))
+
+(describe "board-open-coordinates"
+  (it "Returns the open coordinates for the passed board"
+    (should= '([0 1] [1 2] [2 0]) (board-open-coordinates [["X" " " "X"]
+                                                           ["O" "X" " "]
+                                                           [" " "X" "O"]]))))
 
 (describe "is-coordinate-open"
   (it "Returns false if there is a token at the passed coordinate on the passed board"
