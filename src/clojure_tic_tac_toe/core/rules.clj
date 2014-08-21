@@ -7,7 +7,7 @@
       (get-in winning-row [0 0]))))
 
 (defn is-draw [board]
-  (if-not (= (winning-token board) nil)
+  (if (winning-token board)
     false
     (not-any? #{" "} (flatten board))))
 
