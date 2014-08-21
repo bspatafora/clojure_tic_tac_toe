@@ -12,12 +12,17 @@
   (if (is-game-over board)
     (score board)
     (if maximizing
-        (apply max (conj (map #(minimax (place-token "O" % board) false) (board-open-coordinates board)) -1))
-        (apply min (conj (map #(minimax (place-token "X" % board) true) (board-open-coordinates board)) 1)))))
+      (apply max (conj (map #(minimax (place-token "O" % board) false) (board-open-coordinates board)) -1))
+      (apply min (conj (map #(minimax (place-token "X" % board) true) (board-open-coordinates board)) 1)))))
+
+(defn- coordinate-scores [coordinates board]
+  (map #(minimax (place-token "O" % board) false) coordinates))
+
+(defn- score-and-coordinate-pairs [coordinates board]
+  (map vector (coordinate-scores coordinates board) coordinates))
+
+(defn- highest-scoring-coordinate [score-and-coordinate-pairs]
+  (second (last (sort score-and-coordinate-pairs))))
 
 (defn minimax-move [board]
-  (let [candidates (board-open-coordinates board)
-        scores (map #(minimax (place-token "O" % board) false) candidates)
-        best-score (apply max scores)
-        best-score-indexes (keep-indexed #(if (= best-score %2) %1) scores)]
-    (nth candidates (first best-score-indexes))))
+  (highest-scoring-coordinate (score-and-coordinate-pairs (board-open-coordinates board) board)))
