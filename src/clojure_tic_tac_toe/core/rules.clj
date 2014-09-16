@@ -7,9 +7,8 @@
       (get-in winning-row [0 0]))))
 
 (defn is-draw [board]
-  (if (winning-token board)
-    false
-    (not-any? #{" "} (flatten board))))
+  (and (not-any? #{" "} (flatten board))
+       (not (winning-token board))))
 
 (defn is-game-over [board]
   (if (or (is-draw board) (winning-token board))
